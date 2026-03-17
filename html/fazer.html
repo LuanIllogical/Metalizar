@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetalizeSe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="slide slide-right">
+
+    <script src="shader-component.js"></script>
+
+<label for="imageLoader" class="enviarImagem">
+    Enviar imagem
+</label>
+
+<input type="file" id="imageLoader" accept="image/*" hidden>
+
+
+<div style="flex: 0 0 auto;">
+            <metallic-shader class="show" auto-light width="650" height="450" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg/250px-Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg"></metallic-shader>
+        <div style="margin-top: 1rem;">
+    <label for="autoLightCheckbox" style="color:white; font-weight: 600;">
+        Auto Light
+    </label>
+    <input type="checkbox" id="autoLightCheckbox" checked>
+</div>
+        </div>
+    <button class="metal-button aluminum-button" data-metal="aluminum">Alumínio</button>
+<button class="metal-button bronze-button" data-metal="bronze">Bronze</button>
+    <button class="metal-button gold-button" data-metal="gold">Ouro</button>
+   <br>
+<div class="size-buttons">
+  <button data-width="650" data-height="450" class="size-button">650x450</button>
+  <button data-width="800" data-height="600" class="size-button">800x600</button>
+  <button data-width="1024" data-height="768" class="size-button">1024x768</button>
+  <button data-width="400" data-height="300" class="size-button">400x300</button>
+</div>
+    
+    
+    <script src="animations.js"></script>
+
+</body>
+</html>
