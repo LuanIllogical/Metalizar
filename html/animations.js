@@ -23,9 +23,9 @@ const shader = document.querySelector('metallic-shader');
 
 // Default selections
 let selectedMetal = 'aluminum';
-let selectedSize = { width: 650, height: 450 };
+let selectedSize = { width: 400, height: 399 };
 // Select all metal buttons
-const metalButtons = document.querySelectorAll(".metal-button");
+const metalButtons = document.querySelectorAll(".mb");
 
 // Function to set selected metal visually and on the shader
 metalButtons.forEach(btn => {
@@ -78,11 +78,21 @@ document.querySelectorAll('.size-button').forEach(btn => {
 const autoLightCheckbox = document.getElementById('autoLightCheckbox');
 
 autoLightCheckbox.addEventListener('change', () => {
-    if(!autoLightCheckbox.checked){
+    if(autoLightCheckbox.checked){
         shader.setAttribute('auto-light', '');
         shader.auto = true;
     } else {
         shader.removeAttribute('auto-light');
         shader.auto = false;
     }
+});
+
+const fileInput = document.getElementById("imageLoader");
+
+fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+    shader.setImage(url);
 });

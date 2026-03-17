@@ -18,7 +18,7 @@ body {
   text-align: center;
   font-size: 2.5rem;
   padding: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .secao {
@@ -251,23 +251,6 @@ body {
     display:none;
 }
 
-.enviarImagem {
-    padding:16px 16px;
-    color:white;
-    background: #878b8e;
-    cursor:pointer;
-    border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: inline-block;
-  text-transform: uppercase;
-  display: inline-flex;      
-  align-items: center; 
-  position: relative;
-  font-weight: 550;
-  text-decoration: none;
-}
-
 .enviarImagem:hover {
     background: #6b6f72;
 }
@@ -277,26 +260,28 @@ body {
   top: 2px;
 }
 
-.metal-button {
+.metal-box {
   padding:16px 16px;
     color:white;
-    cursor:pointer;
-    border: 3px solid transparent; /* <-- default border */
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: inline-block;
-  text-transform: uppercase;
-  display: inline-flex;      
-  align-items: center; 
-  position: relative;
+    font-size: 1.2rem;
+    display: inline-flex;
+  text-transform: uppercase; 
+  align-items: center;
   font-weight: 550;
   text-decoration: none;
   margin: 0.6rem;
-   box-sizing: border-box; /* ensures padding + border fit inside */
+   box-sizing: border-box; 
+}
+
+.metal-button {
+    cursor:pointer;
+    border: 3px solid transparent;
+  cursor: pointer;
+  position: relative;
 }
 
 .metal-button.selected {
-    border: 3px solid #fff; /* highlight active button */
+    border: 3px solid #fff;
 }
 
 .metal-button:active {
@@ -368,26 +353,21 @@ input {
     -moz-appearance: textfield; /* Firefox */
 }
 
-.altura {
-  padding:16px 16px;
-    color:white;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-weight: 550;
-  margin: 0.6rem;
-  background-color: #878b8e;
-}
-
-.largura {
-  padding:16px 16px;
-    color:white;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-weight: 550;
-  margin: 0.6rem;
-  background-color: #efbf04;
-}
-
 .selected {
-    border: 3px solid #fff; /* highlight active button */
+    border: 3px solid #fff;
+}
+
+.nao-real {
+  color: white;
+  font-size: 0.9rem;
+  position: relative;
+  top: -2rem;
+}
+
+.size-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 50rem;
+  justify-content: center;
+  margin: 0 auto; 
 }

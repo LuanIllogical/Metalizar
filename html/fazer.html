@@ -6,38 +6,65 @@
     <title>MetalizeSe</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="slide slide-right">
+<body>
 
     <script src="shader-component.js"></script>
 
-<label for="imageLoader" class="enviarImagem">
+<div class="slide slide-down titulo">
+        <h1>
+            <a href="index.html" style="text-decoration: none; color: whitesmoke;">MetalizeSe</a>
+        </h1>
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <a href="fazer.html" class="btn btn-1 btn-sep fa-gift">Faça a sua</a>
+            <a class="btn btn-2 btn-sep icon-cart">Carrinho</a>
+            <a class="btn btn-4 btn-sep fa-image">Galeria</a>
+    </div>
+
+
+
+    <div class="slide slide-right">
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+<div style="flex: 0 0 auto;">
+            <metallic-shader class="show" auto-light width="400" height="399" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg/250px-Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg"></metallic-shader>
+            <br>
+            <label class="nao-real">*Imagem fora de escala</label>
+            <br>
+            <div class="metal-box" style="background: #878b8e;">
+<label for="autoLightCheckbox" style="font-weight: 600; lighting-color: #efbf04">
+        Iluminação Automática&nbsp;&nbsp;
+    </label>
+    <input type="checkbox" id="autoLightCheckbox" checked>
+            </div>
+    
+</div>
+<div>
+    <label for="imageLoader" class="metal-box metal-button aluminum-button">
     Enviar imagem
 </label>
 
 <input type="file" id="imageLoader" accept="image/*" hidden>
-
-
-<div style="flex: 0 0 auto;">
-            <metallic-shader class="show" auto-light width="650" height="450" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg/250px-Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg"></metallic-shader>
-        <div style="margin-top: 1rem;">
-    <label for="autoLightCheckbox" style="color:white; font-weight: 600;">
-        Auto Light
-    </label>
-    <input type="checkbox" id="autoLightCheckbox" checked>
-</div>
-        </div>
-    <button class="metal-button aluminum-button" data-metal="aluminum">Alumínio</button>
-<button class="metal-button bronze-button" data-metal="bronze">Bronze</button>
-    <button class="metal-button gold-button" data-metal="gold">Ouro</button>
+<br>
+    <button class="metal-box metal-button aluminum-button mb" data-metal="aluminum">Alumínio</button>
+<button class="metal-box metal-button bronze-button mb" data-metal="bronze">Bronze</button>
+    <button class="metal-box metal-button gold-button mb" data-metal="gold">Ouro</button>
    <br>
 <div class="size-buttons">
-  <button data-width="650" data-height="450" class="size-button">650x450</button>
-  <button data-width="800" data-height="600" class="size-button">800x600</button>
-  <button data-width="1024" data-height="768" class="size-button">1024x768</button>
-  <button data-width="400" data-height="300" class="size-button">400x300</button>
+  <button data-width="400" data-height="399" class="metal-box metal-button aluminum-button size-button">5cm x 5cm</button>
+  <button data-width="400" data-height="400" class="metal-box metal-button aluminum-button size-button">10cm x 10cm</button>
+  <button data-width="600" data-height="400" class="metal-box metal-button bronze-button size-button">15cm x 10cm</button>
+  <button data-width="400" data-height="600" class="metal-box metal-button bronze-button size-button">10cm x 15cm</button>
+  <button data-width="400" data-height="401" class="metal-box metal-button gold-button size-button">20cm x 20cm</button>
+  <button data-width="601" data-height="400" class="metal-box metal-button gold-button size-button">30cm x 20cm</button>
+  <button data-width="400" data-height="601" class="metal-box metal-button gold-button size-button">20cm x 30cm</button>
 </div>
+</div>
+</div>
+
     
     
+    
+    </div>
+
     <script src="animations.js"></script>
 
 </body>
