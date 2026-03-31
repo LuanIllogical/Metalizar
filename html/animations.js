@@ -96,3 +96,35 @@ fileInput.addEventListener("change", (e) => {
     const url = URL.createObjectURL(file);
     shader.setImage(url);
 });
+
+const addToCartBtn = document.getElementById("addToCart");
+
+addToCartBtn.addEventListener("click", () => {
+    const canvas = shader.shadowRoot.querySelector("canvas");
+
+    // Convert canvas to image
+    const imageData = canvas.toDataURL("image/png");
+
+    const item = {
+        image: imageData,
+        metal: selectedMetal,
+        width: selectedSize.width,
+        height: selectedSize.height
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(item);
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Adicionado ao carrinho!");
+});
+
+metalButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        metalButtons.forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+
+        selectedMetal = btn.dataset.metal; // IMPORTANT
+        shader.setAttribute("metal-type", selectedMetal);
+    });
+});

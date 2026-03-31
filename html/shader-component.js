@@ -27,8 +27,9 @@ connectedCallback() {
     canvas.height = height;
     this.canvas = canvas;
 
-    const gl = canvas.getContext("webgl");
+    const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
     this.gl = gl;
+    console.log(canvas.toDataURL());
 
     const img = shadow.querySelector("img");
     img.crossOrigin = "anonymous";

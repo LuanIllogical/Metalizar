@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Galeria</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Galeria de Pedidos</h1>
+
+<div id="gallery"></div>
+
+<script>
+const gallery = document.getElementById("gallery");
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+orders.forEach(order => {
+    const orderDiv = document.createElement("div");
+
+    orderDiv.innerHTML = `
+        <h3>Pedido - ${order.date}</h3>
+        <p>Endereço: ${order.address}</p>
+    `;
+
+    order.items.forEach(item => {
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.width = 150;
+        orderDiv.appendChild(img);
+    });
+
+    orderDiv.innerHTML += "<hr>";
+    gallery.appendChild(orderDiv);
+});
+</script>
+
+</body>
+</html>
