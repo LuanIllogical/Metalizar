@@ -6,8 +6,18 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="slide slide-down titulo">
+        <h1>
+            <a href="index.html" style="text-decoration: none; color: whitesmoke;">MetalizeSe</a>
+        </h1>
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <a href="fazer.html" class="btn btn-1 btn-sep fa-gift">Faça a sua</a>
+            <a href="cart.html" class="btn btn-2 btn-sep icon-cart">Carrinho</a>
+            <a href="galeria.html" class="btn btn-4 btn-sep fa-image">Galeria</a>
+    </div>
 
-<h1>Galeria de Pedidos</h1>
+
+<h1 style="color: white">Galeria de Pedidos</h1>
 
 <div id="gallery"></div>
 
@@ -19,8 +29,8 @@ orders.forEach(order => {
     const orderDiv = document.createElement("div");
 
     orderDiv.innerHTML = `
-        <h3>Pedido - ${order.date}</h3>
-        <p>Endereço: ${order.address}</p>
+        <h3 style="color: white">Pedido - ${order.date}</h3>
+        <p style="color: white">Endereço: ${order.address}</p>
     `;
 
     order.items.forEach(item => {
@@ -34,6 +44,6 @@ orders.forEach(order => {
     gallery.appendChild(orderDiv);
 });
 </script>
-
+<script src="animations.js"></script>
 </body>
 </html>

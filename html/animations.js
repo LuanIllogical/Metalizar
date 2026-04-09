@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+  // =========================
+  // SLIDE ANIMATION OBSERVER
+  // =========================
   const elements = document.querySelectorAll('.slide');
 
   const observer = new IntersectionObserver((entries) => {
@@ -14,117 +18,167 @@ document.addEventListener('DOMContentLoaded', () => {
     threshold: 0.1
   });
 
-  elements.forEach(element => {
-    observer.observe(element);
-  });
-});
+  elements.forEach(element => observer.observe(element));
 
-const shader = document.querySelector('metallic-shader');
 
-// Default selections
+  // =========================
+  // SHADER SETUP
+  // =========================
+  const shader = document.querySelector('metallic-shader');
+
+  if (!shader) {
+    console.error("metallic-shader not found!");
+    return;
+  }
+
 let selectedMetal = 'aluminum';
-let selectedSize = { width: 400, height: 399 };
-// Select all metal buttons
-const metalButtons = document.querySelectorAll(".mb");
+let selectedMetalLabel = 'Alumínio';
 
-// Function to set selected metal visually and on the shader
+let selectedSize = { width: 400, height: 399 };
+let selectedSizeLabel = '5cm x 5cm';
+
+
+  // =========================
+  // METAL BUTTONS
+  // =========================
+  const metalButtons = document.querySelectorAll(".mb");
+
 metalButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-        // Remove 'selected' from all buttons
         metalButtons.forEach(b => b.classList.remove("selected"));
-
-        // Add 'selected' to clicked button
         btn.classList.add("selected");
 
-        // Update the shader
-        const metal = btn.dataset.metal || btn.dataset.metal.toLowerCase();
-        shader.setAttribute("metal-type", metal);
+        selectedMetal = btn.dataset.metal;
+        selectedMetalLabel = btn.dataset.label;
+
+        shader.setAttribute("metal-type", selectedMetal);
     });
 });
 
-// Set a default on page load
-const defaultMetal = metalButtons[0];
-defaultMetal.classList.add("selected");
-shader.setAttribute("metal-type", defaultMetal.dataset.metal || defaultMetal.textContent.toLowerCase());
+  // Default metal
+  if (metalButtons.length > 0) {
+    const defaultMetal = metalButtons[0];
+    defaultMetal.classList.add("selected");
 
-// Size buttons
-document.querySelectorAll('.size-button').forEach(btn => {
+    selectedMetal = defaultMetal.dataset.metal;
+    shader.setAttribute("metal-type", selectedMetal);
+  }
+
+
+  // =========================
+  // SIZE BUTTONS
+  // =========================
+  const sizeButtons = document.querySelectorAll('.size-button');
+
+  sizeButtons.forEach(btn => {
     const w = parseInt(btn.dataset.width);
     const h = parseInt(btn.dataset.height);
 
-    // Set default selected
-    if(w === selectedSize.width && h === selectedSize.height) btn.classList.add('selected');
+    // Default selected size
+    if (w === selectedSize.width && h === selectedSize.height) {
+      btn.classList.add('selected');
+    }
 
     btn.addEventListener('click', () => {
-        // Update shader attributes
-        shader.setAttribute('width', w);
-        shader.setAttribute('height', h);
-        shader.style.width = w + 'px';
-        shader.style.height = h + 'px';
 
-        // Update canvas inside shadow DOM
-        const canvas = shader.shadowRoot.querySelector('canvas');
+      shader.setAttribute('width', w);
+      shader.setAttribute('height', h);
+      shader.style.width = w + 'px';
+      shader.style.height = h + 'px';
+
+      const canvas = shader.shadowRoot?.querySelector('canvas');
+      if (canvas) {
         canvas.width = w;
         canvas.height = h;
+      } else {
+        console.warn("Canvas not found inside shader");
+      }
 
-        // Update button styles
-        document.querySelectorAll('.size-button').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+      sizeButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
 
-        selectedSize = { width: w, height: h };
+      selectedSize = { width: w, height: h };
+      selectedSizeLabel = btn.dataset.label;
     });
-});
+  });
 
-const autoLightCheckbox = document.getElementById('autoLightCheckbox');
 
-autoLightCheckbox.addEventListener('change', () => {
-    if(autoLightCheckbox.checked){
+  // =========================
+  // AUTO LIGHT TOGGLE
+  // =========================
+  const autoLightCheckbox = document.getElementById('autoLightCheckbox');
+
+  if (autoLightCheckbox) {
+    autoLightCheckbox.addEventListener('change', () => {
+      if (autoLightCheckbox.checked) {
         shader.setAttribute('auto-light', '');
         shader.auto = true;
-    } else {
+      } else {
         shader.removeAttribute('auto-light');
         shader.auto = false;
-    }
-});
-
-const fileInput = document.getElementById("imageLoader");
-
-fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    shader.setImage(url);
-});
-
-const addToCartBtn = document.getElementById("addToCart");
-
-addToCartBtn.addEventListener("click", () => {
-    const canvas = shader.shadowRoot.querySelector("canvas");
-
-    // Convert canvas to image
-    const imageData = canvas.toDataURL("image/png");
-
-    const item = {
-        image: imageData,
-        metal: selectedMetal,
-        width: selectedSize.width,
-        height: selectedSize.height
-    };
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(item);
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert("Adicionado ao carrinho!");
-});
-
-metalButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        metalButtons.forEach(b => b.classList.remove("selected"));
-        btn.classList.add("selected");
-
-        selectedMetal = btn.dataset.metal; // IMPORTANT
-        shader.setAttribute("metal-type", selectedMetal);
+      }
     });
+  }
+
+
+  // =========================
+  // IMAGE UPLOAD
+  // =========================
+  const fileInput = document.getElementById("imageLoader");
+
+  if (fileInput) {
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+
+      if (typeof shader.setImage === "function") {
+        shader.setImage(url);
+      } else {
+        console.error("setImage method not found on shader");
+      }
+    });
+  }
+
+
+  // =========================
+  // ADD TO CART
+  // =========================
+  const addToCartBtn = document.getElementById("addToCart");
+
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", () => {
+      const canvas = shader.shadowRoot?.querySelector("canvas");
+
+      if (!canvas) {
+        alert("Erro: não foi possível capturar a imagem.");
+        return;
+      }
+
+      const imageData = canvas.toDataURL("image/png");
+
+      const item = {
+    image: imageData,
+
+    // internal values (for logic)
+    metal: selectedMetal,
+
+    // DISPLAY values (for UI)
+    metalLabel: selectedMetalLabel,
+    sizeLabel: selectedSizeLabel,
+
+    // keep px if needed
+    width: selectedSize.width,
+    height: selectedSize.height
+};
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert("Adicionado ao carrinho!");
+    });
+  }
+
 });

@@ -6,173 +6,38 @@
 <title>Carrinho</title>
 
 <link rel="stylesheet" href="styles.css">
-
-<style>
-/* CART STYLES */
-.cart-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: white;
-  margin: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
-  width: 80%;
-}
-
-.cart-img {
-  width: 120px;
-  border-radius: 5px;
-}
-
-.cart-info {
-  text-align: left;
-}
-
-.remove-btn {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-input {
-  margin: 1rem;
-}
-</style>
 </head>
 
 <body>
+    <div class="slide slide-down titulo">
+        <h1>
+            <a href="index.html" style="text-decoration: none; color: whitesmoke;">MetalizeSe</a>
+        </h1>
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <a href="fazer.html" class="btn btn-1 btn-sep fa-gift">Faça a sua</a>
+            <a href="cart.html" class="btn btn-2 btn-sep icon-cart">Carrinho</a>
+            <a href="galeria.html" class="btn btn-4 btn-sep fa-image">Galeria</a>
+    </div>
 
-<h1>Carrinho</h1>
+
+<h1 style="color: white">Carrinho</h1>
 
 <div id="cartItems" class="cart-container"></div>
 
-<h2>Endereço</h2>
+<h2 style="color: white">Endereço</h2>
 <input type="text" id="address" placeholder="Digite seu endereço">
 
-<h2>Frete</h2>
-<p id="shipping"></p>
+<h2 style="color: white">Frete</h2>
+<p style="color: white" id="shipping"></p>
 
-<h2>Total</h2>
-<p id="total"></p>
+<h2 style="color: white">Total</h2>
+<p style="color: white" id="total"></p>
 
-<button id="buy">Finalizar Compra</button>
+<button id="buy" class="metal-box metal-button gold-button">
+  Finalizar Compra
+</button>
 
-<script>
-// Load cart
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartItemsDiv = document.getElementById("cartItems");
-
-const priceTable = {
-    aluminum: 40,
-    bronze: 60,
-    gold: 80
-};
-
-// Render cart
-function renderCart() {
-    cartItemsDiv.innerHTML = "";
-    let total = 0;
-
-    if(cart.length === 0){
-        cartItemsDiv.innerHTML = "<p>Seu carrinho está vazio.</p>";
-    }
-
-    cart.forEach((item, index) => {
-        const price = priceTable[item.metal] || 50;
-        total += price;
-
-        const div = document.createElement("div");
-        div.classList.add("cart-item");
-
-        div.innerHTML = `
-            <img src="${item.image}" class="cart-img">
-
-            <div class="cart-info">
-                <p><strong>Metal:</strong> ${item.metal}</p>
-                <p><strong>Tamanho:</strong> ${item.width} x ${item.height}</p>
-                <p><strong>Preço:</strong> R$ ${price}</p>
-
-                <button class="remove-btn" data-index="${index}">
-                    Remover
-                </button>
-            </div>
-        `;
-
-        cartItemsDiv.appendChild(div);
-    });
-
-    const shipping = cart.length * 10;
-    const finalTotal = total + shipping;
-
-    document.getElementById("shipping").innerText = "R$ " + shipping;
-    document.getElementById("total").innerText = "R$ " + finalTotal;
-
-    attachRemoveEvents();
-}
-
-// Remove item
-function attachRemoveEvents() {
-    document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const index = btn.dataset.index;
-
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            renderCart();
-        });
-    });
-}
-
-// Purchase
-document.getElementById("buy").addEventListener("click", () => {
-    const address = document.getElementById("address").value;
-
-    if (!address) {
-        alert("Digite um endereço!");
-        return;
-    }
-
-    if(cart.length === 0){
-        alert("Carrinho vazio!");
-        return;
-    }
-
-    const order = {
-        items: cart,
-        address: address,
-        date: new Date().toLocaleString()
-    };
-
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-    orders.push(order);
-
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    // Clear cart
-    localStorage.removeItem("cart");
-
-    alert("Compra realizada com sucesso!");
-
-    window.location.href = "galeria.html";
-});
-
-// Init
-renderCart();
-
-</script>
-
+<script src="cart.js"></script>
+<script src="animations.js"></script>
 </body>
 </html>
-```
