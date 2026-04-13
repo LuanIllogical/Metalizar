@@ -1,24 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  // =======================
-  // LOAD CART
-  // =======================
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   const cartItemsDiv = document.getElementById("cartItems");
 
-  // =======================
-  // BASE PRICES (metal)
-  // =======================
   const priceTable = {
       aluminum: 40,
       bronze: 60,
       gold: 80
   };
 
-  // =======================
-  // SIZE MULTIPLIERS
-  // =======================
   const sizeMultiplier = {
       "5cm x 5cm": 1,
       "10cm x 10cm": 1.4,
@@ -29,9 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "20cm x 30cm": 2.5
   };
 
-  // =======================
-  // RENDER CART
-  // =======================
   function renderCart() {
       cartItemsDiv.innerHTML = "";
       let total = 0;
@@ -80,9 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
       attachRemoveEvents();
   }
 
-  // =======================
-  // REMOVE ITEM
-  // =======================
   function attachRemoveEvents() {
       document.querySelectorAll(".remove-btn").forEach(btn => {
           btn.addEventListener("click", () => {
@@ -96,9 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // =======================
-  // PURCHASE
-  // =======================
   document.getElementById("buy").addEventListener("click", () => {
       const address = document.getElementById("address").value;
 
@@ -130,10 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.location.href = "galeria.html";
   });
-
-  // =======================
-  // INIT
-  // =======================
   renderCart();
 
 });

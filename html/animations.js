@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  // =========================
-  // SLIDE ANIMATION OBSERVER
-  // =========================
   const elements = document.querySelectorAll('.slide');
 
   const observer = new IntersectionObserver((entries) => {
@@ -19,11 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   elements.forEach(element => observer.observe(element));
-
-
-  // =========================
-  // SHADER SETUP
-  // =========================
   const shader = document.querySelector('metallic-shader');
 
   if (!shader) {
@@ -37,10 +28,6 @@ let selectedMetalLabel = 'Alumínio';
 let selectedSize = { width: 400, height: 399 };
 let selectedSizeLabel = '5cm x 5cm';
 
-
-  // =========================
-  // METAL BUTTONS
-  // =========================
   const metalButtons = document.querySelectorAll(".mb");
 
 metalButtons.forEach(btn => {
@@ -55,7 +42,6 @@ metalButtons.forEach(btn => {
     });
 });
 
-  // Default metal
   if (metalButtons.length > 0) {
     const defaultMetal = metalButtons[0];
     defaultMetal.classList.add("selected");
@@ -64,17 +50,12 @@ metalButtons.forEach(btn => {
     shader.setAttribute("metal-type", selectedMetal);
   }
 
-
-  // =========================
-  // SIZE BUTTONS
-  // =========================
   const sizeButtons = document.querySelectorAll('.size-button');
 
   sizeButtons.forEach(btn => {
     const w = parseInt(btn.dataset.width);
     const h = parseInt(btn.dataset.height);
 
-    // Default selected size
     if (w === selectedSize.width && h === selectedSize.height) {
       btn.classList.add('selected');
     }
@@ -102,10 +83,6 @@ metalButtons.forEach(btn => {
     });
   });
 
-
-  // =========================
-  // AUTO LIGHT TOGGLE
-  // =========================
   const autoLightCheckbox = document.getElementById('autoLightCheckbox');
 
   if (autoLightCheckbox) {
@@ -120,10 +97,6 @@ metalButtons.forEach(btn => {
     });
   }
 
-
-  // =========================
-  // IMAGE UPLOAD
-  // =========================
   const fileInput = document.getElementById("imageLoader");
 
   if (fileInput) {
@@ -141,10 +114,6 @@ metalButtons.forEach(btn => {
     });
   }
 
-
-  // =========================
-  // ADD TO CART
-  // =========================
   const addToCartBtn = document.getElementById("addToCart");
 
   if (addToCartBtn) {
@@ -161,14 +130,11 @@ metalButtons.forEach(btn => {
       const item = {
     image: imageData,
 
-    // internal values (for logic)
     metal: selectedMetal,
 
-    // DISPLAY values (for UI)
     metalLabel: selectedMetalLabel,
     sizeLabel: selectedSizeLabel,
 
-    // keep px if needed
     width: selectedSize.width,
     height: selectedSize.height
 };

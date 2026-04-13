@@ -15,7 +15,7 @@ canvas { width: 100%; height: 100%; display: block; }
 <canvas></canvas>
 <img style="display:none;">
 `;
-        this.metalType = 0; // default
+        this.metalType = 0;
     }
 
 connectedCallback() {
@@ -46,7 +46,6 @@ connectedCallback() {
         });
     }
 
-    // Always attach mousemove listener
     canvas.addEventListener("mousemove", e => {
         if(!this.auto){
             const r = canvas.getBoundingClientRect();
@@ -60,13 +59,11 @@ connectedCallback() {
         const gl = this.gl;
         const canvas = this.canvas;
 
-        // Vertex shader
         const vsSrc = `
 attribute vec2 position;
 void main() { gl_Position = vec4(position,0.0,1.0); }
 `;
 
-        // Fragment shader
         const fsSrc = `
 precision mediump float;
 uniform vec3 iResolution;
@@ -111,7 +108,6 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
 void main(){ mainImage(gl_FragColor,gl_FragCoord.xy); }
 `;
 
-        // Compile shaders
         const compile = (src, type) => {
             const s = gl.createShader(type);
             gl.shaderSource(s, src);
@@ -131,7 +127,6 @@ void main(){ mainImage(gl_FragColor,gl_FragCoord.xy); }
 
         this.program = program;
 
-        // Quad
         const vertices = new Float32Array([-1,-1,1,-1,-1,1,1,1]);
         const buffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -140,13 +135,11 @@ void main(){ mainImage(gl_FragColor,gl_FragCoord.xy); }
         gl.enableVertexAttribArray(posLoc);
         gl.vertexAttribPointer(posLoc,2,gl.FLOAT,false,0,0);
 
-        // Uniforms
         this.iResLoc = gl.getUniformLocation(program,"iResolution");
         this.iMouseLoc = gl.getUniformLocation(program,"iMouse");
         this.iChanLoc = gl.getUniformLocation(program,"iChannel0");
         this.metalLoc = gl.getUniformLocation(program,"metalType");
 
-        // Texture
         const tex = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, tex);
         gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);

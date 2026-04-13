@@ -143,8 +143,8 @@ body {
     font-size: 140%;
     line-height: normal;
     display: flex;
-    align-items: center;  /* vertically center the icon inside pseudo-element */
-    justify-content: center; /* horizontally center the icon */
+    align-items: center;
+    justify-content: center;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -346,12 +346,12 @@ input {
     
   input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    -webkit-appearance: none;
     margin: 0;
 }
 
 input {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
 }
 
 .selected {
@@ -375,15 +375,16 @@ input {
 
 .cart-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
   gap: 20px;
 
   width: 80%;
-  margin: 0 auto; /* centers horizontally */
+  margin: 0 auto;
   padding: 20px;
+
+  justify-content: center;
 }
 
-/* CARD STYLE */
 .cart-item {
   background: whitesmoke;
   border-radius: 12px;
@@ -434,7 +435,7 @@ input {
 }
 
 .empty-cart {
-  grid-column: 1 / -1; /* span all columns */
+  grid-column: 1 / -1;
   text-align: center;
   font-size: 1.5rem;
   color: white;
