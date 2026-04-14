@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
           date: new Date().toLocaleString()
       };
 
+
       let orders = JSON.parse(localStorage.getItem("orders")) || [];
       orders.push(order);
 
@@ -114,3 +115,4 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 
 });
+
