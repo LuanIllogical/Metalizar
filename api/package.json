@@ -13,6 +13,8 @@
   "type": "module",
   "dependencies": {
     "@fastify/cors": "^11.2.0",
-    "fastify": "^5.8.5"
+    "fastify": "^5.8.5",
+    "pg": "^8.20.0",
+    "postgresql": "^0.0.1"
   }
 }

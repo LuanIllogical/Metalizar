@@ -92,11 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Carrinho vazio!");
             return;
         }
+        const totalValue = parseFloat(
+            document.getElementById("total").innerText.replace("R$", "").trim()
+        );
 
         const order = {
             items: cart,
             address: address,
-            total: document.getElementById("total").innerText,
+            total: totalValue,
             date: new Date().toLocaleString()
         };
 

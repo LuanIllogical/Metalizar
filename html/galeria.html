@@ -30,26 +30,33 @@
             try {
                 const response = await fetch("http://localhost:3333/orders");
                 const orders = await response.json();
+                if (orders.length > 0) {
+                    orders.forEach(order => {
+                        const orderDiv = document.createElement("div");
 
-                orders.forEach(order => {
-                    const orderDiv = document.createElement("div");
-
-                    orderDiv.innerHTML = `
-        <h3 style="color: white">Pedido - ${order.date}</h3>
+                        orderDiv.innerHTML = `
+        <h3 style="color: white">Pedido - ${new Date(order.date).toLocaleString("pt-BR")}</h3>
         <p style="color: white">Endereço: ${order.address}</p>
-        <p style="color: white">Total: ${order.total}</p>
+        <p style="color: white">Total: R$ ${order.total}</p>
       `;
 
-                    order.items.forEach(item => {
-                        const img = document.createElement("img");
-                        img.src = item.image;
-                        img.width = 150;
-                        orderDiv.appendChild(img);
-                    });
+                        order.items.forEach(item => {
+                            const img = document.createElement("img");
+                            img.src = item.image;
+                            img.width = 150;
+                            orderDiv.appendChild(img);
+                        });
 
-                    orderDiv.innerHTML += "<hr>";
+                        orderDiv.innerHTML += "<hr>";
+                        gallery.appendChild(orderDiv);
+                    });
+                }
+                else {
+                    const orderDiv = document.createElement("div");
+                    orderDiv.innerHTML = `<h2 style="color: white">Nenhum pedido realizado ainda!</h2>`
                     gallery.appendChild(orderDiv);
-                });
+                }
+
 
             } catch (error) {
                 console.error(error);
